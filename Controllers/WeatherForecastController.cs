@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+//class that handles the routes that the service exposes
 namespace react_api.Controllers
 {
     [ApiController]

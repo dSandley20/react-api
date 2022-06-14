@@ -1,5 +1,6 @@
 using System;
 
+//model for sample application
 namespace react_api
 {
     public class WeatherForecast
