@@ -21,10 +21,21 @@ namespace react_api.Controllers
 
         // Get /items
         [HttpGet]
-        public IEnumerable<Blog> GetBlogs(){
+        public IEnumerable<Blog> GetBlogs() {
             var blogs = repository.GetBlogs();
             return blogs;
         }
-
+        
+        //Get /items/{id} 
+        [HttpGet("{id}")]
+        public ActionResult<Blog> GetBlog(Guid id)
+        {
+            var item = repository.GetBlog(id);
+            if(item is null)
+            {
+                return NotFound();
+            } 
+            return item;
+        }
     }
 }
