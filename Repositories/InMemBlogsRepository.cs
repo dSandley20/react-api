@@ -21,5 +21,10 @@ namespace react_api.Repositories{
         public Blog GetBlog(Guid id){
             return blogs.Where(blog => blog.Id == id).SingleOrDefault();
         }
+
+        public void CreateBlog(Blog blog)
+        {
+            blogs.Add(blog); 
+        }
     }
 }
