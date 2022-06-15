@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using react_api.Entities;
 using react_api.RepositoryInterfaces;
+using System.Linq;
+using react_api.Dtos;
+using react_api.Utilities;
 
 namespace react_api.Controllers
 
@@ -22,16 +25,16 @@ namespace react_api.Controllers
 
         // Get /items
         [HttpGet]
-        public IEnumerable<Blog> GetBlogs() {
-            var blogs = repository.GetBlogs();
+        public IEnumerable<BlogDto> GetBlogs() {
+            var blogs = repository.GetBlogs().Select(blog => blog.AsBlogDto());
             return blogs;
         }
         
         //Get /items/{id} 
         [HttpGet("{id}")]
-        public ActionResult<Blog> GetBlog(Guid id)
+        public ActionResult<BlogDto> GetBlog(Guid id)
         {
-            var item = repository.GetBlog(id);
+            var item = repository.GetBlog(id).AsBlogDto();
             if(item is null)
             {
                 return NotFound();
