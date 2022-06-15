@@ -30,7 +30,7 @@ namespace react_api.Controllers
             return blogs;
         }
         
-        //Get /items/{id} 
+        // Get /items/{id} 
         [HttpGet("{id}")]
         public ActionResult<BlogDto> GetBlog(Guid id)
         {
@@ -40,6 +40,22 @@ namespace react_api.Controllers
                 return NotFound();
             } 
             return item;
+        }
+
+        // Post /items
+        [HttpPost]
+        public ActionResult<BlogDto> CreateBlog(CreateBlogDto blogDto)
+        {
+            Blog blog = new()
+            {
+                Id = Guid.NewGuid(),
+                Name = blogDto.Name,
+                Description = blogDto.Description,
+                CreatedDate = DateTimeOffset.UtcNow
+            };
+
+            repository.CreateBlog(blog);
+            return CreatedAtAction(nameof(GetBlog), new { id = blog.Id}, blog.AsBlogDto());
         }
     }
 }
