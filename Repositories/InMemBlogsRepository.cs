@@ -26,5 +26,11 @@ namespace react_api.Repositories{
         {
             blogs.Add(blog); 
         }
+
+        public void UpdateBlog(Blog blog)
+        {
+            var index = blogs.FindIndex(existingBlog => existingBlog.Id == blog.Id);
+            blogs[index] = blog;
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace react_api.RepositoryInterfaces
     {
         public IEnumerable<Blog> GetBlogs();
         public Blog GetBlog(Guid id);
-
         public void CreateBlog(Blog blog);
+        void UpdateBlog(Blog blog);
+
     }
 }

@@ -57,5 +57,20 @@ namespace react_api.Controllers
             repository.CreateBlog(blog);
             return CreatedAtAction(nameof(GetBlog), new { id = blog.Id}, blog.AsBlogDto());
         }
+
+        // PUT /items/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateBlog(Guid id, UpdateBlogDto blogDto)
+        {
+            var existingItem = repository.GetBlog(id);
+            if(existingItem is null)
+            {
+                return NotFound();
+            }
+            //with copys the original value then overwrites the specified properties
+            Blog updatedBlog = existingItem with { Name = blogDto.Name, Description = blogDto.Description };
+            repository.UpdateBlog(updatedBlog);
+            return NoContent();
+        }
     }
 }
