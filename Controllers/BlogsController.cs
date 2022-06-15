@@ -3,6 +3,7 @@ using react_api.Repositories;
 using System;
 using System.Collections.Generic;
 using react_api.Entities;
+using react_api.RepositoryInterfaces;
 
 namespace react_api.Controllers
 
@@ -13,10 +14,10 @@ namespace react_api.Controllers
     public class BlogsController : ControllerBase
     {
         // not ideal to store everything in memory, should actually query the DB 
-        private readonly InMemBlogsRepository repository;
+        private readonly BlogsRepoInterface repository;
 
-        public BlogsController(){
-            repository = new InMemBlogsRepository();
+        public BlogsController(BlogsRepoInterface repository){
+            this.repository = repository;
         }
 
         // Get /items
