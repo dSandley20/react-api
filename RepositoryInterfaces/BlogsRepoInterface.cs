@@ -12,6 +12,6 @@ namespace react_api.RepositoryInterfaces
         public Blog GetBlog(Guid id);
         public void CreateBlog(Blog blog);
         void UpdateBlog(Blog blog);
-
+        void DeleteItem(Guid id);
     }
 }

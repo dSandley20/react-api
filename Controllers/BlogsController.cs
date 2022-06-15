@@ -72,5 +72,18 @@ namespace react_api.Controllers
             repository.UpdateBlog(updatedBlog);
             return NoContent();
         }
+
+        // DELETE /items/{id}
+        [HttpDelete]
+        public ActionResult DeleteBlog(Guid id)
+        {
+            var existingBlog = repository.GetBlog(id);
+            if(existingBlog is null)
+            {
+                return NotFound();
+            }
+            repository.DeleteItem(id);
+            return NoContent();
+        }
     }
 }

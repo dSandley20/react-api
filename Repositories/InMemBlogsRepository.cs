@@ -32,5 +32,11 @@ namespace react_api.Repositories{
             var index = blogs.FindIndex(existingBlog => existingBlog.Id == blog.Id);
             blogs[index] = blog;
         }
+
+        public void DeleteItem(Guid id)
+        {
+            var index = blogs.FindIndex(existingBlog => existingBlog.Id == id);
+            blogs.RemoveAt(index);
+        }
     }
 }
