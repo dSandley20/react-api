@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using react_api.RepositoryInterfaces;
+using react_api.Repositories;
 
 namespace react_api
 {
@@ -28,7 +30,7 @@ namespace react_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<BlogsRepoInterface, InMemBlogsRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -46,7 +48,7 @@ namespace react_api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "react_api v1"));
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
