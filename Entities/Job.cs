@@ -1,5 +1,5 @@
 using System;
-namespace react_api
+namespace react_api.Entities
 {
     public record Job{
         public Guid Id {get; init;}
