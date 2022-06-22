@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace react_api.Dtos
+namespace react_api.Dtos.Blogs
 {
-    public record CreateBlogDto
+    public class CreateUpdateBlogDto
     {
         [Required]
         public string Name { get; init; }
