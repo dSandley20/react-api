@@ -1,4 +1,4 @@
-﻿using react_api.Dtos;
+﻿using react_api.Dtos.Blogs;
 using react_api.Entities;
 using System;
 using System.Collections.Generic;

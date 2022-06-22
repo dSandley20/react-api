@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using react_api.Entities;
 using react_api.RepositoryInterfaces;
 using System.Linq;
-using react_api.Dtos;
+using react_api.Dtos.Blogs;
 using react_api.Utilities;
 
 namespace react_api.Controllers
@@ -44,7 +44,7 @@ namespace react_api.Controllers
 
         // Post /items
         [HttpPost]
-        public ActionResult<BlogDto> CreateBlog(CreateBlogDto blogDto)
+        public ActionResult<BlogDto> CreateBlog(CreateUpdateBlogDto blogDto)
         {
             Blog blog = new()
             {
@@ -60,7 +60,7 @@ namespace react_api.Controllers
 
         // PUT /items/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateBlog(Guid id, UpdateBlogDto blogDto)
+        public ActionResult UpdateBlog(Guid id, CreateUpdateBlogDto blogDto)
         {
             var existingItem = repository.GetBlog(id);
             if(existingItem is null)
