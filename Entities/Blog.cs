@@ -1,4 +1,6 @@
 using System;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace react_api.Entities{
     
@@ -8,6 +10,7 @@ namespace react_api.Entities{
     //value-based equality support (able to compare 2 of the same item only matches if all properties match)
     public record Blog{
 
+        [BsonId]
         public Guid Id {get; init;}
         //only sets the id during the creation of the obj
         public string Name {get; init;}

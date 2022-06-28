@@ -13,6 +13,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using react_api.RepositoryInterfaces;
 using react_api.Repositories;
+using react_api.Entities;
+using MongoDB.Driver;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace react_api
 {
@@ -24,24 +28,41 @@ namespace react_api
         }
 
         //Configuration Reader
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         //Service Registration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<BlogsRepoInterface, InMemBlogsRepository>();
+            //tells the application how to treat DateTimeOffSet and Guids
+            BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
+            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
+
+            //configures the MongoDB Client so all we have to do is pass the collection name to the repository
+            services.AddSingleton<IMongoDatabase>(ServiceProvider =>
+            {
+                var settings = Configuration.GetSection(nameof(DbConnectionConfig)).Get<DbConnectionConfig>();
+                return new MongoClient(settings.ConnectionString).GetDatabase(settings.DatabaseName);
+            });
+
+            //registering all of the controllers for the API
+            services.AddSingleton<IBlogsRepository, MongoBlogsRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "react_api", Version = "v1" });
             });
+            //add service for connection to the appsettings.json file
+            services.Configure<DbConnectionConfig>(Configuration.GetSection("DbConnection"));
         }
 
         //Request handing pipeline config , middleware
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+           
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

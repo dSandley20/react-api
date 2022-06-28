@@ -1,7 +1,10 @@
 using System;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace react_api.Entities
 {
     public record Job{
+        [BsonId]
         public Guid Id {get; init;}
         public string CompanyName {get; init;}
         public string Position {get; init;}

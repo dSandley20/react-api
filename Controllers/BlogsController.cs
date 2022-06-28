@@ -17,9 +17,9 @@ namespace react_api.Controllers
     public class BlogsController : ControllerBase
     {
         // not ideal to store everything in memory, should actually query the DB 
-        private readonly BlogsRepoInterface repository;
+        private readonly IBlogsRepository repository;
 
-        public BlogsController(BlogsRepoInterface repository){
+        public BlogsController(IBlogsRepository repository){
             this.repository = repository;
         }
 
@@ -82,7 +82,7 @@ namespace react_api.Controllers
             {
                 return NotFound();
             }
-            repository.DeleteItem(id);
+            repository.DeleteBlog(id);
             return NoContent();
         }
     }

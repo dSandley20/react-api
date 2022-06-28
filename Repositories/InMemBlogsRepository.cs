@@ -5,7 +5,7 @@ using System.Linq;
 using react_api.RepositoryInterfaces;
 
 namespace react_api.Repositories{
-    public class InMemBlogsRepository : BlogsRepoInterface
+    public class InMemBlogsRepository : IBlogsRepository
     
     {
         private readonly List<Blog> blogs = new(){
@@ -33,7 +33,7 @@ namespace react_api.Repositories{
             blogs[index] = blog;
         }
 
-        public void DeleteItem(Guid id)
+        public void DeleteBlog(Guid id)
         {
             var index = blogs.FindIndex(existingBlog => existingBlog.Id == id);
             blogs.RemoveAt(index);
