@@ -1,7 +1,7 @@
 ﻿using System;
 namespace react_api.Dtos.References
 {
-    public class ReferenceDto
+    public record ReferenceDto
     {
         public Guid Id { get; init; }
         public string FirstName { get; init; }

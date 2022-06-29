@@ -1,7 +1,7 @@
 ﻿using System;
 namespace react_api.Dtos.Projects
 {
-    public class ProjectDto
+    public record ProjectDto
     {
       
         public Guid Id { get; init; }

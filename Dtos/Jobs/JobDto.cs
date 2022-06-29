@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace react_api.Dtos.Jobs
 {
-    public class JobDto
+    public record JobDto
     {
         public Guid Id {get; init;}
         public string CompanyName {get; init;}
