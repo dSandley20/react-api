@@ -14,4 +14,18 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dtos\Projects\" />
+    <None Remove="Dtos\References\" />
+    <None Remove="Dtos\Blogs\" />
+    <None Remove="Dtos\Jobs\"/>
+    <None Remove="configurations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\Projects\" />
+    <Folder Include="Dtos\References\" />
+    <Folder Include="Dtos\Jobs\"/>
+    <Folder Include="Dtos\Blogs\"/>
+    <Folder Include="Settings\" />
+  </ItemGroup>
 </Project>
