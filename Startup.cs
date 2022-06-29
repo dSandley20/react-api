@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using react_api.RepositoryInterfaces;
 using react_api.Repositories;
 using react_api.Entities;
-using react_api.Settings;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
