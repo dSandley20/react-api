@@ -34,7 +34,7 @@ namespace react_api.Controllers
         [HttpGet("{id}")]
         public ActionResult<BlogDto> GetBlog(Guid id)
         {
-            var item = repository.GetBlog(id).AsBlogDto();
+            BlogDto item = repository.GetBlog(id).AsBlogDto();
             if(item is null)
             {
                 return NotFound();
@@ -74,7 +74,7 @@ namespace react_api.Controllers
         }
 
         // DELETE /items/{id}
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteBlog(Guid id)
         {
             var existingBlog = repository.GetBlog(id);
