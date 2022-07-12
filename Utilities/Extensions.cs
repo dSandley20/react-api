@@ -59,5 +59,16 @@ namespace react_api.Utilities
                 UpdatedDate = job.UpdatedDate
             };
         }
+
+        public static SkillDto AsSkillDto(this Skill skill){
+            return new SkillDto{
+                Id = skill.Id,
+                Name = skill.Name,
+                Description = skill.Description,
+                YearsExperience = skill.YearsExperience,
+                Image = skill.Image,
+                Project = skill.Project
+            }
+        }
     }
 }
