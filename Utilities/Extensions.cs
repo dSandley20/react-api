@@ -2,6 +2,7 @@
 using react_api.Dtos.Projects;
 using react_api.Dtos.References;
 using react_api.Dtos.Jobs;
+using react_api.Dtos.Skills;
 using react_api.Entities;
 
 namespace react_api.Utilities
@@ -61,14 +62,15 @@ namespace react_api.Utilities
         }
 
         public static SkillDto AsSkillDto(this Skill skill){
-            return new SkillDto{
+            return new SkillDto
+            {
                 Id = skill.Id,
                 Name = skill.Name,
                 Description = skill.Description,
                 YearsExperience = skill.YearsExperience,
                 Image = skill.Image,
-                Project = skill.Project
-            }
+                Projects = skill.Projects
+            };
         }
     }
 }

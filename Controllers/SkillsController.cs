@@ -7,6 +7,7 @@ using react_api.RepositoryInterfaces;
 using react_api.Dtos.Skills;
 using react_api.Utilities;
 using react_api.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace react_api.Controllers
 {
@@ -20,7 +21,7 @@ namespace react_api.Controllers
             this.repository = repository;
         }
 
-        [HttpsGet]
+        [HttpGet]
         public IEnumerable<SkillDto> GetSkills(){
             return repository.GetSkills().Select(skill => skill.AsSkillDto());
         }
@@ -42,7 +43,7 @@ namespace react_api.Controllers
                 Description = skillDto.Description,
                 YearsExperience = skillDto.YearsExperience,
                 Image = skillDto.Image,
-                Project = skillDto.Project
+                Projects = skillDto.Projects
             };
 
             repository.CreateSkill(skill);
@@ -60,7 +61,7 @@ namespace react_api.Controllers
                 Description = skillDto.Description,
                 YearsExperience = skillDto.YearsExperience,
                 Image = skillDto.Image,
-                Project = skillDto.Project
+                Projects = skillDto.Projects
             };
             repository.UpdateSkill(skill);
             return NoContent();
@@ -68,11 +69,11 @@ namespace react_api.Controllers
 
         [HttpDelete("{id}")]
         public ActionResult<SkillDto> DeleteSkill(Guid id){
-            var existingSkill = repository.GetSkill(id)
+            var existingSkill = repository.GetSkill(id);
             if(existingSkill is null){
                 return NotFound();
             }
-            repository.DeleteSkill(id);
+            repository.DeleteSkill(existingSkill);
             return NoContent();
         }
     }

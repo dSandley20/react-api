@@ -14,28 +14,40 @@ namespace react_api.Repositories
         private readonly IMongoCollection<Skill> skillsCollection;
         private readonly FilterDefinitionBuilder<Skill> skillsFilter = Builders<Skill>.Filter;
 
-        public MongoSkillsRepository(IMongoDatabase client){
+        public MongoSkillsRepository(IMongoDatabase client)
+        {
             skillsCollection = client.GetCollection<Skill>("skills");
         }
 
-        public void CreateSkill(Skill skill){
+        public void CreateSkill(Skill skill)
+        {
             skillsCollection.InsertOne(skill);
         }
 
-        public void DeleteSkill(Guid id){
+        public void DeleteSkill(Guid id)
+        {
             skillsCollection.DeleteOne(skillsFilter.Eq((existingSkill) => existingSkill.Id, id));
         }
 
-        public IEnumerable<Skill> GetSkills(){
+        public IEnumerable<Skill> GetSkills()
+        {
             return skillsCollection.Find(new BsonDocument()).ToList();
         }
 
-        public void UpdateSkill(Skill skill){
-            skillsCollection.ReplaceOne(skillsFilter.Eq(existingSkill => existingSkill.Id, skill.Id), skill)
+        public void UpdateSkill(Skill skill)
+        {
+            skillsCollection.ReplaceOne(skillsFilter.Eq(existingSkill => existingSkill.Id, skill.Id), skill);
         }
 
-        public Skill GetSkill(Guid id){
-            return skillsFilter.Find(skillsFilter.Eq(existingSkill => existingSkill.Id, id)).FirstOrDefault
+        public Skill GetSkill(Guid id)
+        {
+            return skillsCollection.Find(skillsFilter.Eq(existingSkill => existingSkill.Id, id)).FirstOrDefault();
+
+        }
+
+        public void DeleteSkill(Skill skill)
+        {
+            skillsCollection.DeleteOne(skillsFilter.Eq(existingSkill => existingSkill.Id, skill.Id));
         }
     }
 }

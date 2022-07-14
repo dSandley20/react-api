@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using react_api.Entities;
 
 namespace react_api.Dtos.Skills
 {
@@ -17,6 +18,7 @@ namespace react_api.Dtos.Skills
         [Required]
         public string Image {get;init;}
         [Required]
-        public Project[] {get; init;}
+        public Project[] Projects { get; init; }
     }
+
 }
