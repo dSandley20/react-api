@@ -23,10 +23,23 @@ namespace react_api
         //Configuration Reader
         public IConfiguration Configuration { get; set; }
 
+        //Cors
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         //Service Registration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:3000/", "https://localhost:3000/");
+                                  });
+            });
+
             //tells the application how to treat DateTimeOffSet and Guids
             BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
@@ -63,10 +76,15 @@ namespace react_api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "react_api v1"));
             }
-            
+
+
+            app.UseCors();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
