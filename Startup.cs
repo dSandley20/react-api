@@ -31,15 +31,7 @@ namespace react_api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  policy =>
-                                  {
-                                      policy.WithOrigins("http://localhost:3000/", "https://localhost:3000/");
-                                  });
-            });
-
+          
             //tells the application how to treat DateTimeOffSet and Guids
             BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
@@ -56,6 +48,16 @@ namespace react_api
             services.AddSingleton<IJobsRepository, MongoJobsRepository>();
             services.AddSingleton<IRefrencesRepository, MongoReferencesRepository>();
             services.AddSingleton<IProjectsRepository, MongoProjectsRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:3000",
+                                            "https://localhost:3000");
+                    });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -78,13 +80,11 @@ namespace react_api
             }
 
 
-            app.UseCors();
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthorization();
 
